@@ -10,12 +10,14 @@ import {
   View,
   Text
 } from 'react-native';
+import AppRoutes from './Chat/AppRoutes';
+import { NavigationContainer } from '@react-navigation/native';
 
 const App = () => {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
+    <NavigationContainer>
+      <AppRoutes />
+    </NavigationContainer>
   );
 }
 
