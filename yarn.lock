@@ -5925,6 +5925,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-document-picker@^9.0.1":
+  "integrity" "sha512-l2c2xChwsdjzZIV9QJc85buC3vXkM5ZuY4943yMDj3TiszJp1spmHNaRMZKYIh3yVwdD2jENm0DBU5AWa+jhLg=="
+  "resolved" "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-9.0.1.tgz"
+  "version" "9.0.1"
+  dependencies:
+    "invariant" "^2.2.4"
+
 "react-native-gesture-handler@^2.12.1", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-deqh36bw82CFUV9EC4tTo2PP1i9HfCOORGS3Zmv71UYhEZEHkzZv18IZNPB+2Awzj45vLIidZxGYGFxHlDSQ5A=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.12.1.tgz"
@@ -5935,6 +5942,11 @@
     "invariant" "^2.2.4"
     "lodash" "^4.17.21"
     "prop-types" "^15.7.2"
+
+"react-native-image-picker@^5.6.1":
+  "integrity" "sha512-LPPlgJi97EzCDY4NWp7z0oUWmCbagnB6HSoKcLJHJD/DaFYN/dJPrqjqKaqqw8K/5Ze6DIsNg9PZohjNEYQQWQ=="
+  "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-5.6.1.tgz"
+  "version" "5.6.1"
 
 "react-native-pager-view@*", "react-native-pager-view@>= 4.0.0":
   "integrity" "sha512-fZ8chez5J+w831nSnbtK8hwlCiMy1DgpFv8xG6ajXLsAI8uMkGvP554QDIDNlUoCuVwMf7OFyd32Y2Nm2Iaj9Q=="
