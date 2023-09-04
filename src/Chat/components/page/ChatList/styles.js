@@ -6,7 +6,7 @@ const deviceHeight = Dimensions.get('screen').height
 export const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     imageStyle: {
         height: 45,
@@ -54,15 +54,28 @@ export const styles = StyleSheet.create({
     },
     appBarStyle: {
         backgroundColor: 'rgb(11,129,105)',
-        paddingHorizontal: 10,
+        padding: 10,
     },
     appBarTextStyle: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 22,
     },
     titleTextStyle: {
         alignSelf: 'center',
-        fontSize: 15,
-        color: 'white'
+        fontSize: 17,
+        color: 'white',
+        marginTop: 5
+    },
+    iconsViewStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '40%',
+        padding:5
+    },
+    headerViewstyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     }
 })
