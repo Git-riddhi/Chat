@@ -1,9 +1,27 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Image, TouchableOpacity, TextInput, ScrollView, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { styles } from './styles'
 import Icon from 'react-native-vector-icons/AntDesign'
+import SendIcon from 'react-native-vector-icons/Ionicons'
 
 const ChatRoom = (props) => {
+    const [text, setText] = useState('');
+
+    // const [numberOfLines,setNumberOfLines]=useState(1)
+
+    // const handleScrollInTextInput = (contentWidth, contentHeight) => {
+    //     const lineHeight = 20;
+    //     const newNumberOfLines = Math.floor(contentHeight / lineHeight);
+    //     setNumberOfLines(newNumberOfLines);
+    //   };
+    // const maxLines = 5;
+    // const numberOfLines = text.split('\n').length;
+    // const scrollEnabled = numberOfLines > maxLines;
+
+    const countNumOfLines = (text) =>{
+        return text.split('\n').length
+    }
+
 
     return (
         <View style={styles.containerStyle}>
@@ -18,7 +36,29 @@ const ChatRoom = (props) => {
                 />
                 <Text style={styles.nameStyle}>{props?.route?.params?.userName}</Text>
             </View>
-            <Text>ChatRoom</Text>
+            <View style={styles.mainViewStyle}>
+                <View style={styles.innnerViewStyle}>
+                    <View style={styles.textInputViewStyle}>
+                        <TextInput
+                            editable={true}
+                            onChangeText={(inputText) => setText(inputText)}
+                            value={text}
+                            numberOfLines={countNumOfLines(text) > 4 ? 5 : 0}
+                            scrollEnabled={true}
+                            multiline
+                            style={[styles.textInputStyle]}
+                            placeholder='Message'
+                        />
+                            <Icon name='paperclip' 
+                            size={18}  
+                            onPress={()=>console.log("Hello")} 
+                            style={styles.iconStyle}/>
+                    </View>
+                    <Pressable style={styles.sendButtonStyle}>
+                        <SendIcon name='send' size={15} color={'white'} />
+                    </Pressable>
+                </View>
+            </View>
         </View>
     )
 }
