@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { styles } from './styles'
 import Icon from 'react-native-vector-icons/AntDesign'
 import SendIcon from 'react-native-vector-icons/Ionicons'
+import { sendMessage } from '../../../utils/globalConstant'
 
 const ChatRoom = (props) => {
     const [text, setText] = useState('');
@@ -18,8 +19,20 @@ const ChatRoom = (props) => {
     // const numberOfLines = text.split('\n').length;
     // const scrollEnabled = numberOfLines > maxLines;
 
-    const countNumOfLines = (text) =>{
+    const countNumOfLines = (text) => {
+        // console.log("text.split('\n').length",text.split('\n').length);
         return text.split('\n').length
+    }
+
+    const onSend = (newMessage) => {
+
+        const messageCreateTime = new Date()
+        sendMessage.push({
+            newMessage: newMessage,
+            messageCreateTime: messageCreateTime
+        })
+        console.log("sendMessage==",sendMessage);
+        setText('')
     }
 
 
@@ -49,12 +62,12 @@ const ChatRoom = (props) => {
                             style={[styles.textInputStyle]}
                             placeholder='Message'
                         />
-                            <Icon name='paperclip' 
-                            size={18}  
-                            onPress={()=>console.log("Hello")} 
-                            style={styles.iconStyle}/>
+                        <Icon name='paperclip'
+                            size={18}
+                            onPress={() => console.log("Hello")}
+                            style={styles.iconStyle} />
                     </View>
-                    <Pressable style={styles.sendButtonStyle}>
+                    <Pressable style={styles.sendButtonStyle} onPress={() => onSend(text)}>
                         <SendIcon name='send' size={15} color={'white'} />
                     </Pressable>
                 </View>

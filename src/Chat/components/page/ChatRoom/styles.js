@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginHorizontal:5,
+        alignSelf:'flex-end'
     },
     innnerViewStyle: { 
         flexDirection: 'row', 
@@ -62,7 +63,6 @@ export const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     textInputViewStyle:{
-        backgroundColor:'red',
         width:deviceWidth*0.85,
         flexDirection:'row',
         alignItems:'center',
