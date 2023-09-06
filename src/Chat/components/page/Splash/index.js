@@ -7,11 +7,13 @@ const Splash = (props) => {
     useEffect(() => {
         setTimeout(() => {
             props.navigation.navigate('User')
-        }, 2000);
+        }, 1000);
     }, [])
     return (
         <View style={styles.mainViewstyle}> 
+            {/* <Image source={require('../../../../../android/app/src/main/res/mipmap-xhdpi/ic_launcher.png')} style={styles.imagestyle}/> */}
             <Image source={require('../../../../../assets/chatSplash.png')} style={styles.imagestyle}/>
+
         </View>
     )
 }
