@@ -105,7 +105,7 @@ const ChatList = (props) => {
                         <TouchableOpacity onPress={requestCameraPermission}>
                             <Icon name='camera' size={23} color={'white'} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity >
                             <IconTwo name='search-sharp' size={23} color={'white'} />
                         </TouchableOpacity>
                         <IconThree name='dots-vertical' size={23} color={'white'} />
