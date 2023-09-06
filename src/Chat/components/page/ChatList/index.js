@@ -9,11 +9,14 @@ import ImagePicker, {
     launchCamera,
     launchImageLibrary
 } from 'react-native-image-picker';
+import { useAppContext } from '../../../context/AppContext'
 
 
 const ChatList = (props) => {
 
     const [pickerResponse, setPickerResponse] = useState(null);
+
+    const { setCurrentChatUser ,setCurrentChatUserProfile} = useAppContext()
 
     const requestCameraPermission = async () => {
         try {
@@ -65,10 +68,9 @@ const ChatList = (props) => {
     }
 
     const navigateToChatRoom = (profile_image, chatUserName) => {
-        props.navigation.navigate('ChatRoom', {
-            chatUserProfileImage: profile_image,
-            userName: chatUserName
-        })
+        setCurrentChatUser(chatUserName)
+        setCurrentChatUserProfile(profile_image)
+        props.navigation.navigate('ChatRoom')
     }
 
     const renderItem = ({ item }) => {

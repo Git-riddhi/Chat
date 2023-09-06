@@ -72,5 +72,26 @@ export const styles = StyleSheet.create({
     iconStyle:{
         alignSelf:'flex-end',
         bottom:12,
+    },
+    sendMessageStyle:{
+        backgroundColor:'rgb(186,206,153)',
+        marginVertical:2,
+        textAlign:'right',
+        alignSelf:'flex-end',
+        paddingHorizontal:10,
+        marginHorizontal:5,
+        paddingVertical:5,
+        borderRadius:10,
+    },
+    scrollViewStyle:{
+        backgroundColor:'red',
+        // height:deviceHeight*0.75
+        // flex:0.7
+    },
+    messageContainerStyle :{
+        
+        
     }
+
+    
 })
