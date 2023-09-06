@@ -4,6 +4,7 @@ import { styles } from './styles'
 import Feather from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/AntDesign'
 import SendIcon from 'react-native-vector-icons/Ionicons'
+
 import DocumentIcon from 'react-native-vector-icons/Ionicons'
 import ContactIcon from 'react-native-vector-icons/Ionicons'
 import LocationIcon from 'react-native-vector-icons/Ionicons'
@@ -17,6 +18,7 @@ import ImagePicker, {
 import { Button, Divider, Menu, PaperProvider, Provider } from 'react-native-paper'
 // import ImagePicker from 'react-native-image-crop-picker'
 import Contacts from 'react-native-contacts';
+import { useAppContext } from '../../../context/AppContext'
 
 const ChatRoom = (props) => {
 
@@ -30,6 +32,8 @@ const ChatRoom = (props) => {
     // const [isModalVisible, setModalVisible] = useState(false);
     const [pickerResponse, setPickerResponse] = useState(null);
     const [selectedDocument, setSelectedDocument] = useState({});
+
+    const {currentChatUser,currentChatUserProfile} = useAppContext()
 
     const SelectDocument = async () => {
         // For Select Multiple Document
@@ -124,6 +128,11 @@ const ChatRoom = (props) => {
         return text.split('\n').length
     }
 
+    // const onSendMessage = useCallback((newMessages = []) => {
+    //     console.log("newMessages==", newMessages);
+    //     setMessages((prevMessages) =>
+    //         GiftedChat.append(prevMessages, newMessages));
+    // }, []);
 
     return (
         <Provider>
@@ -135,9 +144,9 @@ const ChatRoom = (props) => {
                     <Image
                         style={styles.profileImageStyle}
                         resizeMode='cover'
-                        source={{ uri: props?.route?.params?.chatUserProfileImage }}
+                        source={{ uri: currentChatUserProfile }}
                     />
-                    <Text style={styles.nameStyle}>{props?.route?.params?.userName}</Text>
+                    <Text style={styles.nameStyle}>{currentChatUser}</Text>
                 </View>
                 <View style={styles.mainViewStyle}>
                     <View style={styles.innnerViewStyle}>

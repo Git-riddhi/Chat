@@ -78,3 +78,4 @@ export const chatListArray =[
         "lastMessageTime":'01:43 am'
     }
 ]
+export const sendMessage = []
