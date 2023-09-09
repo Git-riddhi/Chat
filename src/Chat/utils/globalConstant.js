@@ -1,3 +1,5 @@
+import { Dimensions } from "react-native"
+
 export const chatListArray =[
     {
         "profile_image":'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0LRkweFTZq_ozBfqcnZdYC_AbUZ5vDhqWqn9gF0&s',
@@ -79,3 +81,8 @@ export const chatListArray =[
     }
 ]
 export const sendMessage = []
+
+export const appDimension = {
+    deviceWidth: Dimensions.get('screen').width,
+    deviceHeight: Dimensions.get('screen').height,
+}
