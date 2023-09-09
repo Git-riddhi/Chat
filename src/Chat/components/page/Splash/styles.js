@@ -12,6 +12,11 @@ export const styles = StyleSheet.create({
     },
     imagestyle: {
         height: deviceHeight / 3,
-        width: deviceWidth / 2
+        width: deviceWidth / 2,
+
+    },
+    iconstyle: {
+        height: 80,
+        width: 80,
     }
 })

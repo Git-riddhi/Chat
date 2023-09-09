@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
         left:'16%',
         width: deviceWidth * 0.90,
         elevation: 5,
-        zIndex:-100
+        // zIndex:-100
     },
   
     sendButtonStyle: {
