@@ -7,7 +7,7 @@ import IconTwo from 'react-native-vector-icons/Fontisto'
 
 const ContactPicker = (props) => {
     const [contacts, setContacts] = useState([]);
-    const [showTextInput, setShowTextInput] = useState(false)
+    const [showSearchbar, setShowSearchbar] = useState(false)
     const [isLoading, setIsLoading] = useState(true); 
     const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(contacts)
@@ -69,14 +69,14 @@ const ContactPicker = (props) => {
     return (
         <View style={styles.containerStyle}>
             <StatusBar barStyle={'light-content'} backgroundColor={'rgb(11,129,105)'} />
-            {!showTextInput ?
+            {!showSearchbar ?
                 <View style={styles.appBarStyle}>
                     <TouchableOpacity style={styles.backIconStyle} onPress={() => props.navigation.goBack()}>
                         <Icon name='arrowleft' size={25} color='white' />
                     </TouchableOpacity>
 
                     <Text style={styles.headingStyle}>Contacts to send</Text>
-                    <TouchableOpacity style={styles.backIconStyle} onPress={() => { setShowTextInput(true), setSearch(false) }}>
+                    <TouchableOpacity style={styles.backIconStyle} onPress={() => { setShowSearchbar(true), setSearch(false) }}>
                         <IconTwo name='search' size={20} color='white' />
                     </TouchableOpacity>
 
@@ -84,13 +84,13 @@ const ContactPicker = (props) => {
 
                 :
                 <View style={styles.searchBarView}>
-                    <TouchableOpacity style={styles.backIconStyle} onPress={() => setShowTextInput(false)}>
+                    <TouchableOpacity style={styles.backIconStyle} onPress={() => setShowSearchbar(false)}>
                         <Icon name='arrowleft' size={25} color='white' />
                     </TouchableOpacity>
 
                     <TextInput
                         // autoFocus={true}
-                        style={styles.textInputstyle}
+                        style={styles.searchBarStyle}
                         placeholder='Search'
                         placeholderTextColor={'white'}
                         onChangeText={(search) => contactSearch(search)}

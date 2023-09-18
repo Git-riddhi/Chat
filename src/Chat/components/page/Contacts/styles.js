@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginBottom: 5,
     },
-    textInputstyle: {
+    searchBarStyle: {
         marginHorizontal: 10,
         width: '80%',
         color: 'white',

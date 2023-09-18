@@ -54,11 +54,15 @@ export const styles = StyleSheet.create({
     },
     appBarStyle: {
         backgroundColor: 'rgb(11,129,105)',
-        padding: 10,
+        paddingHorizontal:10
     },
     appBarTextStyle: {
         color: 'white',
         fontSize: 22,
+    },
+    chatsText: {
+        backgroundColor: 'rgb(11,129,105)',
+        padding: 5
     },
     titleTextStyle: {
         alignSelf: 'center',
@@ -71,11 +75,23 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '40%',
-        padding:5
+        padding: 5
     },
     headerViewstyle: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-    }
+    },
+    searchBarView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'rgb(11,129,105)',
+        paddingHorizontal: 10,
+        marginBottom: 2,
+    },
+    searchBarStyle: {
+        marginHorizontal: 10,
+        width: '80%',
+        color: 'white',
+    },
 })

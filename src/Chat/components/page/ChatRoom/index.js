@@ -8,8 +8,9 @@ import {
     Pressable,
     Modal,
     PermissionsAndroid,
+    Linking,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -21,15 +22,19 @@ import AudioIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImageIcon from 'react-native-vector-icons/FontAwesome6';
 import CameraIcon from 'react-native-vector-icons/SimpleLineIcons';
 import DocumentPicker from 'react-native-document-picker';
-import ImagePicker, { launchCamera } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Menu, Provider } from 'react-native-paper';
 import { useAppContext } from '../../../context/AppContext';
+import { GiftedChat, Send } from 'react-native-gifted-chat'
+import ImageCropPicker from 'react-native-image-crop-picker';
 
 const ChatRoom = props => {
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
 
     const [pickerResponse, setPickerResponse] = useState(null);
+    const [messages, setMessages] = useState([])
+    const [selectedImages, setSelectedImages] = useState([]);
 
     const {
         currentChatUser,
@@ -58,21 +63,6 @@ const ChatRoom = props => {
             else console.log('error ====>', err);
         }
     };
-
-    // For Select Single Document
-
-    // try {
-    //     const doc = await DocumentPicker.pick({
-    //         type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
-    //         allowMultiSelection: false,
-    //     });
-
-    //     console.log('doc=====>', doc);
-    // } catch (err) {
-    //     if (DocumentPicker.isCancel(e))
-    //         console.log('User Cancelled the upload', e);
-    //     else console.log('error ====>', err);
-    // }
 
     {
         if (selectedDocument == null) {
@@ -134,15 +124,75 @@ const ChatRoom = props => {
         }
     };
 
+
+    const requestGalleryPermission = async () => {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+            {
+            }
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log("Photos permission given");
+            OpenGallery()
+          } else {
+            console.log("Photos permission denied");
+          }
+        } catch (error) {
+          console.warn(error)
+        }
+      }
+    
+
+    const OpenGallery = () => {
+        try {
+          ImageCropPicker.openPicker({
+            multiple: true
+          }).then(images => {
+            console.log('image1', images);
+    
+            // setImage1(images[0].path)
+            // setImage2(images[1].path)
+            // setImage3(images[2].path)
+          });
+        } catch (error) {
+          console.log('error--', error)
+        }
+      }
+
     const countNumOfLines = text => {
         return text.split('\n').length;
     };
 
-    // const onSendMessage = useCallback((newMessages = []) => {
-    //     console.log("newMessages==", newMessages);
-    //     setMessages((prevMessages) =>
-    //         GiftedChat.append(prevMessages, newMessages));
-    // }, []);
+  
+    useEffect(() => {
+        setMessages([
+            {
+                _id: 1,
+                text: 'Hello developer',
+                createdAt: new Date(),
+                user: {
+                    _id: 2,
+                    name: 'React Native',
+                    avatar: 'https://placeimg.com/140/140/any',
+                },
+            },
+        ])
+    }, [])
+
+    const onSendMessage = useCallback((newMessages = []) => {
+        console.log("newMessages==", newMessages);
+        setMessages((prevMessages) =>
+            GiftedChat.append(prevMessages, newMessages));
+    }, []);
+
+    const openGps = (lat, lng) => {
+        Linking.openURL('https://www.google.com/maps/search/?api=1');
+        // var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+        // var url = scheme + `${lat},${lng}`;
+        // Linking.openURL(url);
+      }
+
 
     return (
         <Provider>
@@ -160,9 +210,45 @@ const ChatRoom = props => {
                     />
                     <Text style={styles.nameStyle}>{currentChatUser}</Text>
                 </View>
+              
+
                 <View style={styles.mainViewStyle}>
+                    <GiftedChat
+                        alwaysShowSend={true}
+                        placeholder='Message'
+                        multiline={true}
+                        keyboardShouldPersistTaps={'never'}
+                        textInputStyle={{
+                            backgroundColor: 'lightgrey',
+                            marginHorizontal: 5,
+                            borderRadius: 30,
+                            paddingHorizontal: 10,
+                            textAlignVertical: 'center',
+                            paddingVertical: 10,
+                        }}
+
+                        renderSend={(props) => {
+                            return (
+                                <Send
+                                    {...props}
+                                    containerStyle={styles.sendContainer}
+                                >
+                                    <Pressable style={styles.sendButtonStyle} onPress={(messages) => onSendMessage(messages)}>
+                                        <SendIcon name="send" size={15} color={'white'} />
+                                    </Pressable>
+                                </Send>
+                            );
+                        }}
+                        messages={messages}
+                        onSend={messages => onSendMessage(messages)}
+                        user={{
+                            _id: 1,
+                        }}
+                    />
                     <View style={styles.innnerViewStyle}>
                         <View style={styles.textInputViewStyle}>
+
+
                             <TextInput
                                 editable={true}
                                 onChangeText={inputText => setText(inputText)}
@@ -218,10 +304,7 @@ const ChatRoom = props => {
                                         <View style={styles.pickerView}>
                                             <TouchableOpacity
                                                 style={[styles.iconView, { backgroundColor: '#ba55d3' }]}
-                                            // onPress={() => {
-                                            //     setMenuVisible(false)
-                                            //     requestGalleryPermission()
-                                            // }}
+                                                onPress={requestGalleryPermission}
                                             >
                                                 <ImageIcon name="image" size={25} color="white" />
                                             </TouchableOpacity>
@@ -240,7 +323,9 @@ const ChatRoom = props => {
 
                                         <View style={styles.pickerView}>
                                             <TouchableOpacity
-                                                style={[styles.iconView, { backgroundColor: '#3cb371' }]}>
+                                                style={[styles.iconView, { backgroundColor: '#3cb371' }]}
+                                                onPress={openGps}
+                                                >
                                                 <LocationIcon
                                                     name="location-sharp"
                                                     size={25}

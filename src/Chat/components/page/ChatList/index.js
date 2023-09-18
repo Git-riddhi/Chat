@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, PermissionsAndroid } from 'react-native'
+import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, PermissionsAndroid, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { styles } from './styles'
 import { chatListArray } from '../../../utils/globalConstant'
@@ -9,15 +9,29 @@ import ImagePicker, {
     launchCamera,
     launchImageLibrary
 } from 'react-native-image-picker';
+import ArrowIcon from 'react-native-vector-icons/AntDesign'
 import { useAppContext } from '../../../context/AppContext'
 
 
 const ChatList = (props) => {
 
     const [pickerResponse, setPickerResponse] = useState(null);
+    const { setCurrentChatUser, setCurrentChatUserProfile } = useAppContext()
+    const [showSearchbar, setShowSearchbar] = useState(false)
+    const [search, setSearch] = useState('')
+    const [chatList, setChatList] = useState(chatListArray)
 
-    const { setCurrentChatUser ,setCurrentChatUserProfile} = useAppContext()
+    const ChatSearch = (input) => {
 
+        setSearch(input)
+
+        // var filteredchat = chatListArray.filter(word => word.name.match(input))
+
+        var filteredchat = chatListArray.filter(word => word.name.toLowerCase().includes(input.toLowerCase()));
+        console.log('filteredchat', filteredchat);
+        setChatList(filteredchat);
+
+    }
     const requestCameraPermission = async () => {
         try {
             const granted = await PermissionsAndroid.request(
@@ -99,26 +113,46 @@ const ChatList = (props) => {
     return (
         <View style={styles.containerStyle}>
             <StatusBar barStyle={'light-content'} backgroundColor={'rgb(11,129,105)'} />
-            <View style={styles.appBarStyle}>
-                <View style={styles.headerViewstyle}>
-                    <Text style={styles.appBarTextStyle}>ChatApp</Text>
+            {!showSearchbar ?
+                <View style={styles.appBarStyle}>
+                    <View style={styles.headerViewstyle}>
+                        <Text style={styles.appBarTextStyle}>ChatApp</Text>
 
-                    <View style={styles.iconsViewStyle}>
-                        <TouchableOpacity onPress={requestCameraPermission}>
-                            <Icon name='camera' size={23} color={'white'} />
-                        </TouchableOpacity>
-                        <TouchableOpacity >
-                            <IconTwo name='search-sharp' size={23} color={'white'} />
-                        </TouchableOpacity>
-                        <IconThree name='dots-vertical' size={23} color={'white'} />
+                        <View style={styles.iconsViewStyle}>
+                            <TouchableOpacity onPress={requestCameraPermission}>
+                                <Icon name='camera' size={23} color={'white'} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => { setShowSearchbar(true), setSearch(false) }}>
+                                <IconTwo name='search-sharp' size={23} color={'white'} />
+                            </TouchableOpacity>
+                            <IconThree name='dots-vertical' size={23} color={'white'} />
+                        </View>
+
                     </View>
+                </View> :
+                <View style={styles.searchBarView}>
+                    <TouchableOpacity style={styles.backIconStyle} onPress={() => setShowSearchbar(false)}>
+                        <ArrowIcon name='arrowleft' size={25} color='white' />
+                    </TouchableOpacity>
 
-                </View>
+                    <TextInput
+                        // autoFocus={true}
+                        style={styles.searchBarStyle}
+                        placeholder='Search'
+                        placeholderTextColor={'white'}
+                        onChangeText={(search) => ChatSearch(search)}
+                        value={search}
+                    />
+
+                </View>}
+
+            <View style={styles.chatsText}>
+
                 <Text style={styles.titleTextStyle}>Chats</Text>
             </View>
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={chatListArray}
+                data={chatList}
                 renderItem={renderItem}
             />
         </View>

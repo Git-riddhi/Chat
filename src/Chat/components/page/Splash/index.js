@@ -12,7 +12,6 @@ import { NotificationServices, getFcmToken, requestUserPermission } from '../../
 const Splash = (props) => {
   const [badgeCount, setBadgeCount] = useState(0);
 
-  
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -52,11 +51,11 @@ const Splash = (props) => {
     saveBadgeCount();
   }, [badgeCount]);
 
-  // useEffect(() => {
-  //   requestUserPermission()
-  //   getFcmToken()
-  //   NotificationServices()
-  // }, []);
+  useEffect(() => {
+    requestUserPermission()
+    getFcmToken()
+    NotificationServices()
+  }, []);
 
   const loadBadgeCount = async () => {
     try {
@@ -92,11 +91,11 @@ const Splash = (props) => {
     saveBadgeCount();
   };
 
-  useEffect(() => {
-      requestUserPermission();
-      getFcmToken();
-      NotificationServices();
-  }, [])
+  // useEffect(() => {
+  //     requestUserPermission();
+  //     getFcmToken();
+  //     NotificationServices();
+  // }, [])
 
 
   // useEffect(() => {
