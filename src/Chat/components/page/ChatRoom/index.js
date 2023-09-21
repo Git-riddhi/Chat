@@ -47,30 +47,33 @@ const ChatRoom = props => {
         setSelectedDocument,
     } = useAppContext();
 
-    const SelectDocument = async () => {
-        // For Select Multiple Document
-        try {
-            const doc = await DocumentPicker.pick({
-                type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
-                allowMultiSelection: true,
-            });
 
-            console.log('doc=====>', doc[0]);
-            setSelectedDocument(doc[0]);
-        } catch (err) {
-            if (DocumentPicker.isCancel(e))
-                console.log('User Cancelled the upload', e);
-            else console.log('error ====>', err);
-        }
-    };
+    // Function For open Document Picker : 
 
-    {
-        if (selectedDocument == null) {
-            console.log('Null');
-        } else {
-            console.log('selectedDocument==>', selectedDocument);
-        }
-    }
+    // const SelectDocument = async () => {
+    //     // For Select Multiple Document
+    //     try {
+    //         const doc = await DocumentPicker.pick({
+    //             type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
+    //             allowMultiSelection: true,
+    //         });
+
+    //         console.log('doc=====>', doc[0]);
+    //         setSelectedDocument(doc[0]);
+    //     } catch (err) {
+    //         if (DocumentPicker.isCancel(e))
+    //             console.log('User Cancelled the upload', e);
+    //         else console.log('error ====>', err);
+    //     }
+    // };
+
+    // {
+    //     if (selectedDocument == null) {
+    //         console.log('Null');
+    //     } else {
+    //         console.log('selectedDocument==>', selectedDocument);
+    //     }
+    // }
 
     const requestCameraPermission = async () => {
         try {
@@ -124,47 +127,48 @@ const ChatRoom = props => {
         }
     };
 
+    // Function For open Gallery Picker :
 
-    const requestGalleryPermission = async () => {
-        try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-            {
-            }
-          );
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log("Photos permission given");
-            OpenGallery()
-          } else {
-            console.log("Photos permission denied");
-          }
-        } catch (error) {
-          console.warn(error)
-        }
-      }
-    
+    // const requestGalleryPermission = async () => {
+    //     try {
+    //         const granted = await PermissionsAndroid.request(
+    //             PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    //             {
+    //             }
+    //         );
+    //         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //             console.log("Photos permission given");
+    //             OpenGallery()
+    //         } else {
+    //             console.log("Photos permission denied");
+    //         }
+    //     } catch (error) {
+    //         console.warn(error)
+    //     }
+    // }
 
-    const OpenGallery = () => {
-        try {
-          ImageCropPicker.openPicker({
-            multiple: true
-          }).then(images => {
-            console.log('image1', images);
-    
-            // setImage1(images[0].path)
-            // setImage2(images[1].path)
-            // setImage3(images[2].path)
-          });
-        } catch (error) {
-          console.log('error--', error)
-        }
-      }
+
+    // const OpenGallery = () => {
+    //     try {
+    //         ImageCropPicker.openPicker({
+    //             multiple: true
+    //         }).then(images => {
+    //             console.log('image1', images);
+
+    //             // setImage1(images[0].path)
+    //             // setImage2(images[1].path)
+    //             // setImage3(images[2].path)
+    //         });
+    //     } catch (error) {
+    //         console.log('error--', error)
+    //     }
+    // }
 
     const countNumOfLines = text => {
         return text.split('\n').length;
     };
 
-  
+
     useEffect(() => {
         setMessages([
             {
@@ -174,24 +178,112 @@ const ChatRoom = props => {
                 user: {
                     _id: 2,
                     name: 'React Native',
-                    avatar: 'https://placeimg.com/140/140/any',
+                    avatar: 'https://cdn-icons-png.flaticon.com/256/5778/5778483.png',
+
+
                 },
             },
         ])
     }, [])
 
-    const onSendMessage = useCallback((newMessages = []) => {
-        console.log("newMessages==", newMessages);
-        setMessages((prevMessages) =>
-            GiftedChat.append(prevMessages, newMessages));
-    }, []);
+    // const handleSend = newMessages => {
+    //     setMessages(previousMessages =>
+    //         GiftedChat.append(previousMessages, newMessages)
+    //     );
+    // };
+    const handleSend = newMessages => {
+        const updatedMessages = GiftedChat.append(messages, newMessages);
+        setMessages(updatedMessages);
+    };
+
+    const pickImage = () => {
+        ImageCropPicker.openPicker({
+            cropping: true, // Set to true if you want to enable image cropping
+            width: 300,     // Width of the cropped image
+            height: 400,    // Height of the cropped image
+            includeBase64: true, // Include base64 encoded image data (optional)
+        }).then(response => {
+            if (response.didCancel) {
+                console.log('Image picker canceled');
+            } else if (response.error) {
+                console.error('Image picker error:', response.error);
+            } else {
+                const imageMessage = [
+                    {
+                        _id: Math.random().toString(),
+                        image: `data:${response.mime};base64,${response.data}`, // Include base64 image data
+                        createdAt: new Date(),
+                        user: { _id: 1 },
+                    },
+                ];
+
+                setMenuVisible(false)
+                handleSend(imageMessage);
+            }
+        }).catch(err => {
+            console.error('Image picker error:', err);
+        });
+    };
+
+    const pickFile = async () => {
+        try {
+            const result = await DocumentPicker.pick({
+                type: [DocumentPicker.types.allFiles],
+            });
+            console.log('result', result);
+
+            const fileMessage = {
+                _id: Math.random().toString(),
+                file: {
+                    uri: result.uri,
+                    name: result.name,
+                    type: result.type,
+                },
+                text: result.name, // Display the file name in the chat
+                createdAt: new Date(),
+                user: { _id: 1 },
+            };
+
+
+            // const fileMessage = [
+            //     {
+            //         _id: Math.random().toString(),
+            //         file: {
+            //             uri: result.uri,
+            //             name: result.name,
+            //             type: result.type,
+            //         },
+
+            //         // text: result.uri, // Display the file name in the chat
+            //         createdAt: new Date(),
+            //         user: { _id: 1 },
+            //     },
+            // ];
+
+            handleSend(fileMessage);
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                console.log('Document picker canceled');
+            } else {
+                console.error('Document picker error:', err);
+            }
+        }
+    };
+
+
+
+    // const onSendMessage = useCallback((newMessages = []) => {
+    //     console.log("newMessages==", newMessages);
+    //     setMessages((prevMessages) =>
+    //         GiftedChat.append(prevMessages, newMessages));
+    // }, []);
 
     const openGps = (lat, lng) => {
         Linking.openURL('https://www.google.com/maps/search/?api=1');
         // var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
         // var url = scheme + `${lat},${lng}`;
         // Linking.openURL(url);
-      }
+    }
 
 
     return (
@@ -210,9 +302,10 @@ const ChatRoom = props => {
                     />
                     <Text style={styles.nameStyle}>{currentChatUser}</Text>
                 </View>
-              
+
 
                 <View style={styles.mainViewStyle}>
+
                     <GiftedChat
                         alwaysShowSend={true}
                         placeholder='Message'
@@ -226,25 +319,52 @@ const ChatRoom = props => {
                             textAlignVertical: 'center',
                             paddingVertical: 10,
                         }}
+                        // renderActions={() => (
+                        //     <TouchableOpacity style={styles.sendButtonStyle} onPress={pickImage}>
+                        //         <Text>Send Image</Text>
+                        //     </TouchableOpacity>
+                        // )}
 
                         renderSend={(props) => {
                             return (
-                                <Send
-                                    {...props}
-                                    containerStyle={styles.sendContainer}
-                                >
-                                    <Pressable style={styles.sendButtonStyle} onPress={(messages) => onSendMessage(messages)}>
-                                        <SendIcon name="send" size={15} color={'white'} />
-                                    </Pressable>
-                                </Send>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TouchableOpacity onPress={pickFile}>
+                                        <Feather
+                                            name="paperclip"
+                                            style={styles.paperClip}
+                                            size={28}
+                                            color='blue'
+                                        />
+                                    </TouchableOpacity>
+                                    <Send {...props}>
+                                        <View style={styles.sendContainer}>
+                                            <SendIcon
+
+                                                name="send"
+                                                style={styles.sendButton}
+                                                size={25}
+                                                color='orange'
+                                            />
+                                        </View>
+                                    </Send>
+                                </View>
+                                // <Send
+                                //     {...props}
+                                //     containerStyle={styles.sendContainer}
+                                // >
+                                //     <Pressable style={styles.sendButtonStyle} onPress={(messages) => handleSend(messages)}>
+                                //         <SendIcon name="send" size={15} color={'white'} />
+                                //     </Pressable>
+                                // </Send>
                             );
                         }}
                         messages={messages}
-                        onSend={messages => onSendMessage(messages)}
+                        onSend={messages => handleSend(messages)}
                         user={{
                             _id: 1,
                         }}
                     />
+
                     <View style={styles.innnerViewStyle}>
                         <View style={styles.textInputViewStyle}>
 
@@ -282,7 +402,7 @@ const ChatRoom = props => {
                                                 style={[styles.iconView, { backgroundColor: '#9370db' }]}
                                                 onPress={() => {
                                                     setMenuVisible(false);
-                                                    SelectDocument();
+                                                    pickFile();
                                                 }}>
                                                 <DocumentIcon name="document" size={25} color="white" />
                                             </TouchableOpacity>
@@ -304,7 +424,8 @@ const ChatRoom = props => {
                                         <View style={styles.pickerView}>
                                             <TouchableOpacity
                                                 style={[styles.iconView, { backgroundColor: '#ba55d3' }]}
-                                                onPress={requestGalleryPermission}
+                                                // onPress={requestGalleryPermission}
+                                                onPress={pickImage}
                                             >
                                                 <ImageIcon name="image" size={25} color="white" />
                                             </TouchableOpacity>
@@ -325,7 +446,7 @@ const ChatRoom = props => {
                                             <TouchableOpacity
                                                 style={[styles.iconView, { backgroundColor: '#3cb371' }]}
                                                 onPress={openGps}
-                                                >
+                                            >
                                                 <LocationIcon
                                                     name="location-sharp"
                                                     size={25}
