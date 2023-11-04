@@ -164,9 +164,9 @@ const ChatRoom = props => {
     //     }
     // }
 
-    const countNumOfLines = text => {
-        return text.split('\n').length;
-    };
+    // const countNumOfLines = text => {
+    //     return text.split('\n').length;
+    // };
 
 
     useEffect(() => {
@@ -327,15 +327,96 @@ const ChatRoom = props => {
 
                         renderSend={(props) => {
                             return (
-                                <View style={{ flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={pickFile}>
-                                        <Feather
-                                            name="paperclip"
-                                            style={styles.paperClip}
-                                            size={28}
-                                            color='blue'
-                                        />
-                                    </TouchableOpacity>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Menu
+                                        visible={menuVisible}
+                                        contentStyle={styles.menuContentStyle}
+                                        onDismiss={closeMenu}
+                                        anchor={
+                                            <Feather
+                                                name="paperclip"
+                                                size={22}
+                                                color={'grey'}
+                                                onPress={() => {
+                                                    openMenu();
+                                                }}
+                                            />
+                                        }>
+                                        <View style={styles.centeredView}>
+                                            <View style={styles.modalView}>
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#9370db' }]}
+                                                        onPress={() => {
+                                                            setMenuVisible(false);
+                                                            pickFile();
+                                                        }}>
+                                                        <DocumentIcon name="document" size={25} color="white" />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Document</Text>
+                                                </View>
+
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#ff1493' }]}
+                                                        onPress={() => {
+                                                            setMenuVisible(false);
+                                                            requestCameraPermission();
+                                                        }}>
+                                                        <CameraIcon name="camera" size={25} color="white" />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Camera</Text>
+                                                </View>
+
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#ba55d3' }]}
+                                                        // onPress={requestGalleryPermission}
+                                                        onPress={pickImage}
+                                                    >
+                                                        <ImageIcon name="image" size={25} color="white" />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Gallery</Text>
+                                                </View>
+                                            </View>
+
+                                            <View style={styles.modalView}>
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#ff4500' }]}>
+                                                        <AudioIcon name="headphones" size={25} color="white" />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Audio</Text>
+                                                </View>
+
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#3cb371' }]}
+                                                        onPress={openGps}
+                                                    >
+                                                        <LocationIcon
+                                                            name="location-sharp"
+                                                            size={25}
+                                                            color="white"
+                                                        />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Location</Text>
+                                                </View>
+
+                                                <View style={styles.pickerView}>
+                                                    <TouchableOpacity
+                                                        style={[styles.iconView, { backgroundColor: '#00bfff' }]}
+                                                        onPress={() => {
+                                                            closeMenu();
+                                                            props.navigation.navigate('Contacts');
+                                                        }}>
+                                                        <ContactIcon name="person" size={25} color="white" />
+                                                    </TouchableOpacity>
+                                                    <Text style={styles.modalHeading}>Contact</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </Menu>
                                     <Send {...props}>
                                         <View style={styles.sendContainer}>
                                             <SendIcon
@@ -373,7 +454,7 @@ const ChatRoom = props => {
                                 editable={true}
                                 onChangeText={inputText => setText(inputText)}
                                 value={text}
-                                numberOfLines={countNumOfLines(text) > 4 ? 5 : 0}
+                                // numberOfLines={countNumOfLines(text) > 4 ? 5 : 0}
                                 scrollEnabled={true}
                                 multiline
                                 style={[styles.textInputStyle]}
@@ -381,7 +462,7 @@ const ChatRoom = props => {
                                 placeholderTextColor={'grey'}
                             />
 
-                            <Menu
+                            {/* <Menu
                                 visible={menuVisible}
                                 contentStyle={styles.menuContentStyle}
                                 onDismiss={closeMenu}
@@ -469,7 +550,7 @@ const ChatRoom = props => {
                                         </View>
                                     </View>
                                 </View>
-                            </Menu>
+                            </Menu> */}
                         </View>
 
                         <Pressable style={styles.sendButtonStyle}>
