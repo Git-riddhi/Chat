@@ -20,24 +20,24 @@ const Splash = (props) => {
       incrementBadgeCount();
     });
 
-      // messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-      //   remoteMessage
-      //   const count = await AsyncStorage.getItem('AppBadgeCount');
-      //   const newBadgeCount = parseInt(count) + 1;
-    
-      //   // Save the new badge count to AsyncStorage
-      //   await AsyncStorage.setItem('AppBadgeCount', newBadgeCount.toString());
-    
-      //   // Update the badge count on the app icon
-      //   PushNotification.setApplicationIconBadgeNumber(2);
-    
-      //   // const count = await PushNotification.();
-      //   // console.log('count ===>', count);
-      //   // const newBadgeCount = parseInt(count) + 1;
-    
-      //   // await AsyncStorage.setItem('AppBadgeCount', newBadgeCount.toString());
-      //   // PushNotification.Push.setBadgeCount(42);
-      // });
+    // messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    //   remoteMessage
+    //   const count = await AsyncStorage.getItem('AppBadgeCount');
+    //   const newBadgeCount = parseInt(count) + 1;
+
+    //   // Save the new badge count to AsyncStorage
+    //   await AsyncStorage.setItem('AppBadgeCount', newBadgeCount.toString());
+
+    //   // Update the badge count on the app icon
+    //   PushNotification.setApplicationIconBadgeNumber(2);
+
+    //   // const count = await PushNotification.();
+    //   // console.log('count ===>', count);
+    //   // const newBadgeCount = parseInt(count) + 1;
+
+    //   // await AsyncStorage.setItem('AppBadgeCount', newBadgeCount.toString());
+    //   // PushNotification.Push.setBadgeCount(42);
+    // });
 
     return unsubscribe;
   }, [badgeCount]);
@@ -98,18 +98,21 @@ const Splash = (props) => {
   // }, [])
 
 
-  // useEffect(() => {
-  //     setTimeout(() => {
-  //         props.navigation.navigate('User')
-  //     }, 1000);
-  // }, [])
+  useEffect(() => {
+    setTimeout(() => {
+      props.navigation.navigate('User')
+    }, 1000);
+  }, [])
 
   return (
     <View style={styles.mainViewstyle}>
 
       <Image source={require('../../../../../assets/chatSplash.png')} style={styles.imagestyle} />
+      
+      {/* <Image source={{ uri: 'https://assets-global.website-files.com/62396affb4902b847d57a975/64a293b4823bab1a05a13d51_Website_Blog_Feature-Image_WA-Ads.png' }}
+        style={{ height: 150, width: 150 }} /> */}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
 
         onPress={() => {
           resetBadgeCount()
@@ -124,7 +127,7 @@ const Splash = (props) => {
         >
           {badgeCount}
         </Badge>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
     </View>
   )

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput,TouchableOpacity, Dimensions, Button, Alert, Image } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Dimensions, Button, Alert, Image } from 'react-native'
 import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
@@ -47,51 +47,33 @@ const Login = (props) => {
     return (
         <>
             <View style={styles.containerStyle}>
-                <Text>Login</Text>
+                <Text style={{ fontSize: 17, color: 'rgb(11,129,105)', fontWeight: 'bold', marginBottom: 10 }}>Login</Text>
+                <Image source={{ uri: 'https://assets-global.website-files.com/62396affb4902b847d57a975/64a293b4823bab1a05a13d51_Website_Blog_Feature-Image_WA-Ads.png' }}
+                    style={{ height: 120, width: 120 }} />
                 <TextInput style={styles.input}
                     placeholder="Enter Phone Number"
+                    placeholderTextColor={'grey'}
                     onChangeText={(number) => { setNumber(number) }}
                     keyboardType='numeric'
                 />
                 <TextInput style={styles.input}
                     placeholder="Enter Name"
+                    placeholderTextColor={'grey'}
                     onChangeText={(name) => { setName(name) }}
                     keyboardType='email-address'
                 />
 
                 <View style={styles.button}>
-                    <Button title={'Login'} onPress={() => { loginUser() }} color={'green'} />
+                    <Button title={'Login'} onPress={() => { loginUser() }} color={'rgb(11,129,105)'} />
                 </View>
-                {/* <View style={styles.button}>
-                    <Button title={'Login as a Guest'} onPress={() => { props.navigation.navigate('User') }} color={'rgba(0,0,50,0.9)'} />
-                </View> */}
-                {/* <View style={styles.logoViewStyle}>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('EmailAuthentication') }}>
-                        <Image
-                            source={{ uri: logo.Email_Logo }}
-                            resizeMode='contain'
-                            style={styles.logoImageStyle}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { }}>
-                        <Image
-                            source={{ uri: logo.Facebook_Logo }}
-                            resizeMode='contain'
-                            style={styles.logoImageStyle} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('GoogleAuthentication') }}>
-                        <Image
-                            source={{ uri: logo.Google_Logo }}
-                            resizeMode='contain'
-                            style={styles.logoImageStyle} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('PhoneAuthentication') }}>
-                        <Image
-                            source={{ uri: logo.Phone_Logo }}
-                            resizeMode='contain'
-                            style={styles.logoImageStyle} />
-                    </TouchableOpacity>
-                </View> */}
+
+                <TouchableOpacity onPress={() => { props.navigation.navigate('Signup') }} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 30 }}>
+                    <Text style={{ fontSize: 15, color: 'rgb(11,129,105)', marginBottom: 2, marginRight: 6 }}>Want to create account ? </Text>
+
+                    <Text style={{ fontSize: 17, color: 'rgb(11,129,105)', fontWeight: 'bold' }}>REGISTER</Text>
+
+                </TouchableOpacity>
+
             </View>
 
         </>
@@ -101,6 +83,8 @@ const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
         alignItems: 'center',
+        // paddingTop: 50,
+        // backgroundColor:'rgb(186,206,153)'
         justifyContent: 'center',
     },
     input: {
@@ -113,6 +97,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 10,
+        color:'rgb(11,129,105)'
     },
     button: {
         marginVertical: 10,

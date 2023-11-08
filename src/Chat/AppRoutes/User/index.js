@@ -12,7 +12,9 @@ const Stack = createStackNavigator();
 
 const UserNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName='Login'>
+        <Stack.Navigator 
+        initialRouteName='Login'
+        >
             <Stack.Screen name='ChatList' component={ChatList} options={{ headerShown: false }}/>
             <Stack.Screen name='ChatRoom' component={ChatRoom} options={{ headerShown: false }}/>
             <Stack.Screen name='Contacts' component={ContactPicker} options={{ headerShown: false }}/>

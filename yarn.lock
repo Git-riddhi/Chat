@@ -1745,6 +1745,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-firebase/messaging/-/messaging-18.3.2.tgz"
   "version" "18.3.2"
 
+"@react-native-firebase/storage@^18.6.1":
+  "integrity" "sha512-/MWn8EZ0OBqlE+B6XiwUdZYMCoPuh7oWxvw9GStBB4d5FUNt9jAkqSYDsfEGUjGSLjJ9iLBTyjK1PfXcH7EdZw=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-18.6.1.tgz"
+  "version" "18.6.1"
+
 "@react-native-masked-view/masked-view@^0.2.9":
   "integrity" "sha512-Hs4vKBKj+15VxHZHFtMaFWSBxXoOE5Ea8saoigWhahp8Mepssm0ezU+2pTl7DK9z8Y9s5uOl/aPb4QmBZ3R3Zw=="
   "resolved" "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.2.9.tgz"

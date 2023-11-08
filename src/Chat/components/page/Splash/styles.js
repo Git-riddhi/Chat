@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        // backgroundColor: '#66cdaa'
     },
     imagestyle: {
         height: deviceHeight / 3,

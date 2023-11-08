@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgb(11, 129, 105)',
         borderRadius: 20,
         alignSelf:'center',
-        bottom: '17%',
-        left:'16%',
+        bottom: 45,
+        left:35,
         width: deviceWidth * 0.90,
         elevation: 5,
         // zIndex:-100
@@ -103,6 +103,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 20,
         marginHorizontal: 15,
+        
 
     },
     modalView: {

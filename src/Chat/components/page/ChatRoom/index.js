@@ -28,7 +28,7 @@ import { useAppContext } from '../../../context/AppContext';
 import { GiftedChat, Send } from 'react-native-gifted-chat'
 import ImageCropPicker from 'react-native-image-crop-picker';
 
-const ChatRoom = props => {
+const ChatRoom = ({navigation}) => {
     const openMenu = () => setMenuVisible(true);
     const closeMenu = () => setMenuVisible(false);
 
@@ -292,7 +292,7 @@ const ChatRoom = props => {
                 <View style={styles.appBarStyle}>
                     <TouchableOpacity
                         style={styles.backIconStyle}
-                        onPress={() => props.navigation.goBack()}>
+                        onPress={() =>navigation.goBack()}>
                         <Icon name="arrowleft" size={24} color="white" />
                     </TouchableOpacity>
                     <Image
@@ -314,10 +314,10 @@ const ChatRoom = props => {
                         textInputStyle={{
                             backgroundColor: 'lightgrey',
                             marginHorizontal: 5,
-                            borderRadius: 30,
                             paddingHorizontal: 10,
                             textAlignVertical: 'center',
-                            paddingVertical: 10,
+                            // backgroundColor:'red',
+                            // paddingVertical: 10,
                         }}
                         // renderActions={() => (
                         //     <TouchableOpacity style={styles.sendButtonStyle} onPress={pickImage}>
@@ -408,7 +408,7 @@ const ChatRoom = props => {
                                                         style={[styles.iconView, { backgroundColor: '#00bfff' }]}
                                                         onPress={() => {
                                                             closeMenu();
-                                                            props.navigation.navigate('Contacts');
+                                                           navigation.navigate('Contacts')
                                                         }}>
                                                         <ContactIcon name="person" size={25} color="white" />
                                                     </TouchableOpacity>
@@ -418,14 +418,9 @@ const ChatRoom = props => {
                                         </View>
                                     </Menu>
                                     <Send {...props}>
-                                        <View style={styles.sendContainer}>
-                                            <SendIcon
+                                        <View style={styles.sendButtonStyle}>
 
-                                                name="send"
-                                                style={styles.sendButton}
-                                                size={25}
-                                                color='orange'
-                                            />
+                                            <SendIcon name="send" size={20} color={'white'} />
                                         </View>
                                     </Send>
                                 </View>
@@ -446,7 +441,7 @@ const ChatRoom = props => {
                         }}
                     />
 
-                    <View style={styles.innnerViewStyle}>
+                    {/* <View style={styles.innnerViewStyle}>
                         <View style={styles.textInputViewStyle}>
 
 
@@ -551,12 +546,12 @@ const ChatRoom = props => {
                                     </View>
                                 </View>
                             </Menu> */}
-                        </View>
+                        {/* </View>
 
                         <Pressable style={styles.sendButtonStyle}>
                             <SendIcon name="send" size={15} color={'white'} />
                         </Pressable>
-                    </View>
+                    </View> */} 
                 </View>
             </View>
         </Provider>
