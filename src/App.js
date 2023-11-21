@@ -13,17 +13,25 @@ import {
 import AppRoutes from './Chat/AppRoutes';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppContextProvider } from './Chat/context/AppContext';
+import NewMessage from './Chat/components/page/NewMessage/NewMessage';
+import Login from './Chat/components/page/Login/Login';
+import UserNavigator from './Chat/AppRoutes/User';
 
 
 const App = () => {
   return (
-   
-      
-    <AppContextProvider>
-      <AppRoutes />
-    </AppContextProvider>
-  
- 
+
+    // <NewMessage/>
+    <NavigationContainer>
+      <UserNavigator />
+
+    </NavigationContainer>
+
+    // <AppContextProvider>
+    //   <AppRoutes />
+    // </AppContextProvider>
+
+
   );
 }
 

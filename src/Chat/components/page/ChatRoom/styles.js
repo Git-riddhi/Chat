@@ -41,11 +41,11 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgb(11, 129, 105)',
         borderRadius: 20,
         alignSelf:'center',
-        bottom: '17%',
-        left:'16%',
+        bottom: 45,
+        left:35,
         width: deviceWidth * 0.90,
         elevation: 5,
-        zIndex:-100
+        // zIndex:-100
     },
   
     sendButtonStyle: {
@@ -69,13 +69,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         paddingVertical: 5,
     },
-    textInputViewStyle:{
-        width:deviceWidth*0.85,
-        flexDirection:'row',
-        alignItems:'center',
-        backgroundColor:'silver',
-        borderRadius:25,
-    },
+  
     iconStyle:{
         alignSelf:'flex-end',
         bottom:12,
@@ -96,11 +90,7 @@ export const styles = StyleSheet.create({
         // flex:0.7
     },
     messageContainerStyle :{
-        
-        
     },
-
-    
     textInputViewStyle: {
         width: deviceWidth * 0.82,
         flexDirection: 'row',
@@ -113,6 +103,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 20,
         marginHorizontal: 15,
+        
 
     },
     modalView: {

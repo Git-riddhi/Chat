@@ -5,7 +5,9 @@ export const AppContext = createContext({});
 export const AppContextProvider = ({ children }) => {
     const [currentChatUser, setCurrentChatUser] = useState()
     const [currentChatUserProfile,setCurrentChatUserProfile]=useState()
-    const [text, setText] = useState();
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [text, setText] = useState('');
+    const [selectedDocument, setSelectedDocument] = useState({});
 
     const onSend = (newMessage) => {
         const messageCreateTime = new Date()
@@ -22,6 +24,8 @@ export const AppContextProvider = ({ children }) => {
         currentChatUser, setCurrentChatUser,
         currentChatUserProfile,setCurrentChatUserProfile,
         text, setText,
+        menuVisible, setMenuVisible,
+        selectedDocument, setSelectedDocument,
 
         //function
         onSend
@@ -31,6 +35,8 @@ export const AppContextProvider = ({ children }) => {
         currentChatUser, setCurrentChatUser,
         currentChatUserProfile,setCurrentChatUserProfile,
         text, setText,
+        menuVisible, setMenuVisible,
+        selectedDocument, setSelectedDocument,
 
         //function
         onSend

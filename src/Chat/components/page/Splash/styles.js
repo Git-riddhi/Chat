@@ -8,10 +8,15 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        // backgroundColor: '#66cdaa'
     },
     imagestyle: {
         height: deviceHeight / 3,
-        width: deviceWidth / 2
+        width: deviceWidth / 2,
+
+    },
+    iconstyle: {
+        height: 80,
+        width: 80,
     }
 })
